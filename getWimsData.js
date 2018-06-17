@@ -16,6 +16,7 @@ async function makeReq(day1,month1,year1,day2,month2,year2,day3,month3,year3){
 	const axiosArray = []
 	dates.map((curr)=>{
 		const url = 'https://fam.nwcg.gov/wims/xsql/nfdrs.xsql?stn=&sig=ALL_GB&type=O&start='+ curr + '&end=' + curr + '&time=&user=679&fmodel=7G';
+		console.log(`date of url: ${Date(Date.now())} & current day: ${curr} & url: ${url}`)
 		const axiosReq = axios.get(url)
 		axiosArray.push(axiosReq)
 	})
@@ -49,12 +50,13 @@ async function makeReq(day1,month1,year1,day2,month2,year2,day3,month3,year3){
       		"bi" : entry.bi[0],
       		"adj" : entry.adj[0]
       	}
-
+      	// console.log(ercObj[id])
       	resultAr.push(entry)
       })
       // console.log(JSON.stringify(ercObj))
       var save = JSON.stringify(ercObj);
       fs.writeFile(`./data/day${inc}.json`, save, function (err) {
+      	// console.log(ercObj)		
 			  if (err) return console.log(err);
 			  console.log('Saved');
 			});
